@@ -24,33 +24,16 @@
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="url" type="text" name="input" value="" onblur="onBlur()" placeholder="Please enter in a URL to analyse">
+                    <input id="url" type="text" name="input" value="" onblur="onBlur()" placeholder="Please enter in a URL to sumarize!">
                     <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
                 </form>
             <section>
 
 
              <section>
-                <strong>Analysis Results:</strong>
-                <ul>
-                    <li>
-                        <h4>Text Polarity:</h3>
-                        <p id="polarity"></p>
-                        <h4>Confidence:</h4>
-                        <p id="polarity_confidence"></p>
-                        </li>
-                     <li>
-                        <h4>Text Subjectivity:</h3>
-                        <p id="subjectivity"></p>
-                        <h4>Confidence:</h4>
-                        <p id="subjectivity_confidence"></p>
-                    </li>
-                    <li>
-                        <h3>Text:</h3>
-                        <p id="nlp-text"></p>
-                        </li>
-                    </ul>
-                </section>
+                <strong>Summary:</strong>
+                <span id = summary></span>
+            </section>
 
         </main>
 

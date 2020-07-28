@@ -1,23 +1,18 @@
-const dotenv = require('dotenv')
-dotenv.config()
 var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
-var aylien = require('aylien_textapi')
-var textapi = new aylien({
-    application_id: 'process.env.API_ID',
-    appplication_key: 'process.env.API_KEY'
-})
-const bodyParser = require('body-parser')
+projectData = {}
 const cors = require('cors')
-//const { text } = require('express')
-
 const app = express()
-
+const bodyParser = require('body-parser')
 app.use(express.static('dist'))
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+const dotenv = require('dotenv')
+dotenv.config()
+const key = process.env.API_ID
 
 //console.log(__dirname)
 
@@ -27,23 +22,33 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
-    console.log('Example app listening on port 8081!')
+const port = 3030
+const server = app.listen(port, () => {
+    console.log(`running on localhost: ${port}`)
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+//app.get('/test', function (req, res) {
+//     res.send(mockAPIResponse)
+// })
+
+app.get('/all', (req, res) => {
+    res.send(JSON.stringify(projectData))
 })
-app.post('/sentiment-analysis', (req, res) => {
-    textapi.sentiment({ url: req.body.url }, (error, result) => {
-        if (error) {
-            console.log('Error during Aylien request')
-            res.send();
-            return;
-        }
-        console.log('Got Aylien result')
-        res.send(result)
-    })
+
+app.post('/', (req, res) => {
+    projectData.summary = req.body.summary
+    res.end();
 })
+// app.post('/sentiment-analysis', (req, res) => {
+//     textapi.sentiment({ url: req.body.url }, (error, result) => {
+//         if (error) {
+//             console.log('Error during Aylien request')
+//             res.send();
+//             return;
+//         }
+//         console.log('Got Aylien result')
+//         res.send(result)
+//     })
+// })
 
 module.exports = app
